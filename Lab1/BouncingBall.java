@@ -46,18 +46,13 @@ public class BouncingBall {
             ball2.move();
 
             // Collision detection
-            if (Math.abs(ball1.getCentre_x() - ball2.getCentre_x()) <= ball1.getR() ) {
+            if ((Math.abs(ball1.getCentre_x() - ball2.getCentre_x()) <= ball1.getR() + ball2.getR())
+                    && (Math.abs(ball1.getCentre_y() - ball2.getCentre_y()) <= ball1.getR() + ball2.getR() )) {
                 ball1.setDirection_x(ball1.getDirection_x() * -1);
-                ball1.move();
-                ball2.setDirection_x(ball2.getDirection_x() * -1);
-                ball2.move();
-            }
-
-            if (Math.abs(ball1.getCentre_y() - ball2.getCentre_y()) <= ball1.getR() ) {
                 ball1.setDirection_y(ball1.getDirection_y() * -1);
-                ball1.move();
+
+                ball2.setDirection_x(ball2.getDirection_x() * -1);
                 ball2.setDirection_y(ball2.getDirection_y() * -1);
-                ball2.move();
             }
 
             // Redraw the frame

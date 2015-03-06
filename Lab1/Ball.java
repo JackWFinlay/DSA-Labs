@@ -78,7 +78,6 @@ public class Ball extends JPanel {
 
     @Override
     public void paintComponent(Graphics g) {
-        //this.setPreferredSize(new Dimension(BouncingBall.frame.getSize()));
         super.paintComponent(g);
 
         Graphics2D g2d = (Graphics2D) g;
