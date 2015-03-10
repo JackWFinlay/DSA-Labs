@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class HangMan {
     private static WordList words;
     private static Scanner scanner;
-    private static final int MAX_GUESSES = 0;
+    private static final int MAX_GUESSES = 5;
 
 
     public static void main(String[] args) {
@@ -17,9 +17,11 @@ public class HangMan {
         words.add("dog");
         words.add("cat");
 
-       // System.out.println(words.toString());
-        play(words.remove(words.selectAny()));
+        while (!words.isEmpty()) {
+            play(words.remove(words.selectAny()));
+        }
 
+        System.out.println("All out of words!");
     }
 
     private static void play(String aWord) {
@@ -32,31 +34,48 @@ public class HangMan {
 
         for (int i = 0; i < aWord.length(); i++) {
             current[i] = '_';
+            System.out.print(current[i] + " ");
         }
 
         int toWin = aWord.length();
         int wins = 0;
-        int guesses = 0;
+        int guesses = MAX_GUESSES;
 
-        while (wins < toWin) {
-            System.out.print("Enter your guess: ");
+        while (wins < toWin && guesses > 0) {
+            System.out.print("\nEnter your guess: ");
             char guess = scanner.next().toLowerCase().charAt(0);
+            boolean correct = false;
 
             for (int i = 0; i < aWord.length(); i++) {
-                if (guess == goal[i]){
+                if (guess == goal[i]) {
                     goal[i] = '_';
                     current[i] = guess;
                     wins++;
+                    correct = true;
                 }
             }
 
-            if (wins == toWin){
-                System.out.println("You win!");
-            }
 
-            if (guesses < MAX_GUESSES)
-            for (int i = 0; i < aWord.length(); i++) {
-                System.out.print(current[i] + " ");
+            if (wins == toWin) {
+                System.out.println("You win!");
+            } else {
+
+                if (!correct) {
+                    guesses--;
+
+
+
+                }
+
+                if (guesses > 0) {
+                    for (int i = 0; i < aWord.length(); i++) {
+                        System.out.print(current[i] + " ");
+                    }
+                    System.out.println("\n" + guesses + " guesses remaining.");
+                } else {
+                    System.out.printf("You lose. The correct answer was %s \n", aWord);
+                }
+
             }
 
 
